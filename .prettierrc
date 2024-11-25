@@ -1,0 +1,31 @@
+{
+	"semi": false,
+	"singleQuote": true,
+	"printWidth": 120,
+	"useTabs": true,
+	"tabWidth": 2,
+	"bracketSpacing": true,
+	"trailingComma": "all",
+	"eslint.validate": [
+		{
+			"language": "vue",
+			"autoFix": true
+		},
+		{
+			"language": "javascript",
+			"autoFix": true
+		},
+		{
+			"language": "javascriptreact",
+			"autoFix": true
+		}
+	],
+	"eslint.autoFixOnSave": true,
+	"editor.formatOnSave": false,
+	"vetur.validation.template": false,
+	"singleAttributePerLine": true,
+	"endOfLine": "lf",
+	"arrowParens": "always",
+	"jsxBracketSameLine": true,
+	"experimentalTernaries": false
+}
