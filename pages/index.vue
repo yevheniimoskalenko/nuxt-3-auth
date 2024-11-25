@@ -21,10 +21,7 @@ const email = ref('')
 const password = ref('')
 const accessToken = useCookie('access_token', { maxAge: 60 * 60 * 15 })
 const refreshToken = useCookie('refresh_token', { maxAge: 3600 * 24 * 30 })
-// definePageMeta({
-// 	middleware: 'guest',
-// })
-const signIn = async (values: SignUp) => {
+const signIn = async () => {
 	try {
 		const data = await $api(`/api/auth/sign-in`, {
 			method: 'POST',
