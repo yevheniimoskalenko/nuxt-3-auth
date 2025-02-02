@@ -1,23 +1,68 @@
-const { BaseURL, ServerUrl } = process.env
+const {
+	GTM,
+	NODE_ENV = 'production',
+	BaseURL,
+	SOCKET_URL,
+	GOOGLE_ID,
+	CLIENT_URL,
+	GMAPS_API_KEY,
+	LIMIT,
+	PHONE_US,
+	EMAIL_US,
+} = process.env
 export default defineNuxtConfig({
 	compatibilityDate: '2024-11-01',
 	runtimeConfig: {
 		public: {
 			BaseURL,
+			SOCKET_URL,
+			GTM,
+			CLIENT_URL,
+			GMAPS_API_KEY,
+			LIMIT,
+			PHONE_US,
+			EMAIL_US,
 		},
 	},
-	modules: ['@pinia/nuxt', '@trandaison/nuxt-3-auth'],
+	modules: ['@pinia/nuxt', '@trandaison/nuxt-3-auth', '@nuxtjs/i18n', '@nuxt/image'],
+	i18n: {
+		vueI18n: 'i18n.config.ts',
+		locales: [
+			{
+				code: 'ua',
+				title: 'Українська',
+				files: ['ua.ts'],
+				iso: 'uk-UA',
+			},
+			{
+				code: 'en',
+				file: 'en.ts',
+				title: 'English',
+				iso: 'en-US',
+			},
+			{
+				code: 'fr',
+				file: 'fr.ts',
+				title: 'Français',
+				iso: 'fr-FR',
+			},
+		],
+		defaultLocale: 'ua',
+	},
 	pinia: {
 		storesDirs: ['./stores/**'],
 	},
 	auth: {
 		endpoints: {
-			baseUrl: BaseURL, //client url
-			login: { url: ServerUrl + '/api/auth/sign-in', method: 'POST', property: 'data' },
-			logout: { url: ServerUrl + '/api/auth/logout', method: 'GET' },
-			refresh: { url: ServerUrl + '/api/auth/refresh', method: 'GET', property: 'data' },
-			user: { url: ServerUrl + '/api/users/me', method: 'GET', property: 'data' },
-			signup: { url: ServerUrl + '/api/auth/sign-up', method: 'POST' },
+			baseUrl: CLIENT_URL, //client url
+			login: { url: BaseURL + '/api/auth/sign-in', method: 'POST', property: 'data' },
+			logout: { url: BaseURL + '/api/auth/logout', method: 'GET' },
+			refresh: { url: BaseURL + '/api/auth/refresh', method: 'GET', property: 'data' },
+			user: { url: BaseURL + '/api/users/me', method: 'GET', property: 'data' },
+			signup: { url: BaseURL + '/api/auth/sign-up', method: 'POST' },
+		},
+		redirect: {
+			login: '/',
 		},
 		token: {
 			headerName: 'Authorization',
@@ -31,7 +76,8 @@ export default defineNuxtConfig({
 			paramName: 'token',
 		},
 		rewriteRedirects: true,
-		debug: false,
+		useI18n: true,
+		debug: true,
 	},
 	devtools: { enabled: true },
 })
