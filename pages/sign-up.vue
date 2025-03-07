@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const auth = useAuth()
 const credentials = reactive({
 	email: '',
 	password: '',
@@ -6,7 +7,6 @@ const credentials = reactive({
 	lastName: '',
 	phoneNumber: '',
 })
-const auth = useAuth()
 definePageMeta({
 	auth: 'guest',
 })
