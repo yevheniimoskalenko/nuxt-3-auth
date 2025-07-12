@@ -1,4 +1,17 @@
 <script setup lang="ts">
+const { locales } = useI18n();
+const localePath = useLocalePath();
+const route = useRoute();
+const env = useRuntimeConfig();
+useHead({
+  link: locales.value.map(({ code, iso }) => ({
+    rel: "alternate",
+    hreflang: iso,
+    href:
+      env.public.CLIENT_URL +
+      localePath(route.name.replace(/___[a-z]+/, ""), code),
+  })),
+});
 const error = ref("");
 const auth = useAuth();
 const credentials = reactive({

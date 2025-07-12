@@ -1,13 +1,17 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-const { NODE_ENV = "production", BaseURL, CLIENT_URL } = process.env;
+const { NODE_ENV = "production", BaseURL, CLIENT_URL, GOOGLE_AUTH_CLIENT_ID } = process.env;
 
 export default defineNuxtConfig({
-  compatibilityDate: "2024-11-01",
+  compatibilityDate: '2024-11-01',
+  future: {
+		compatibilityVersion: 4
+	},
   devtools: { enabled: true },
   runtimeConfig: {
     public: {
       BaseURL,
       CLIENT_URL,
+      GOOGLE_AUTH_CLIENT_ID
     },
   },
   modules: [
@@ -15,6 +19,7 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "@trandaison/nuxt-3-auth",
     "@nuxtjs/i18n",
+    'nuxt-vue3-google-signin'
   ],
   i18n: {
     vueI18n: "i18n.config.ts",
@@ -39,7 +44,14 @@ export default defineNuxtConfig({
       },
     ],
     defaultLocale: "ua",
+    baseUrl: CLIENT_URL,
+    bundle: {
+      optimizeTranslationDirective: false,
+    },
   },
+  googleSignIn: {
+		clientId: GOOGLE_AUTH_CLIENT_ID,
+	},
   auth: {
     endpoints: {
       baseUrl: CLIENT_URL, //client url
@@ -78,4 +90,9 @@ export default defineNuxtConfig({
   pinia: {
     storesDirs: ["./stores/**"],
   },
+  vite: {
+    server: {
+      allowedHosts: true
+    }
+  }
 });
